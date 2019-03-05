@@ -2,12 +2,15 @@ from tkinter import *
 Window = Tk()
 Window.title("Assignment 3")
 Window.minsize = "1000 x 1000"
-Window.geometry("240x500+700+300")
+Window.geometry("260x500+400+300")
+
+location = None
 
 #functions to handle button clicks
 def button1_clicked():
     print("qwerty club rules")
 def button2_clicked():
+    location = input("Select file location")
     TextfromFile = open(location, "r")
     contents = TextfromFile.readlines()
     print(contents)
@@ -20,53 +23,19 @@ def button4_clicked():
     print("button 4 clicked")
 
 def Open_clicked():
-    location = input("Select file location")
+    command = button2_clicked()
     print("Open clicked")
-#redundant for this code
-def New_clicked():
-    print("New clicked")
-
-def Save_clicked():
-    print("Save clicked")
-
-def SaveAs_clicked():
-    print("Save As clicked")
-
-def Cut_clicked():
-    print("Cut clicked")
-
-def Copy_clicked():
-    print("Copy clicked")
-
-def Paste_clicked():
-    print("Paste clicked")
-
-def Delete_clicked():
-    print("Delete clicked")
-
 def Quit_clicked():
     raise SystemExit
 
 main_menu = Menu(Window)
 
 FileMenu = Menu(main_menu)
-FileMenu.add_command(label="New",command = New_clicked)
 FileMenu.add_separator()
-FileMenu.add_command(label="Open",command = Open_clicked)
-FileMenu.add_command(label="Save",command = Save_clicked)
-FileMenu.add_command(label="Save As",command = SaveAs_clicked)
-FileMenu.add_separator()
+FileMenu.add_command(label="Open",command = button2_clicked)
 FileMenu.add_command(label="Quit Demo",command = Quit_clicked)
 
-EditMenu = Menu(main_menu)
-EditMenu.add_command(label="Cut",command = Cut_clicked)
-EditMenu.add_command(label="Copy",command = Copy_clicked)
-EditMenu.add_command(label="Paste",command = Paste_clicked)
-EditMenu.add_command(label="Delete",command = Delete_clicked)
-
-
 main_menu.add_cascade(label = "File", menu = FileMenu)
-main_menu.add_cascade(label = "Edit", menu = EditMenu)
 
 #Create Buttons
 button1 = Button(Window,text = "button1", command = button1_clicked, height = 4, width=16)
@@ -79,4 +48,6 @@ button2.grid(column = 1,row = 2)
 button3.grid(column = 0,row = 3)
 button4.grid(column = 1,row = 3)
 
+Window.config(menu=main_menu)
 Window.mainloop()
+#TopLevel.grid_propagate(0)
