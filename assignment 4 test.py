@@ -3,25 +3,24 @@ from statistics import mean
 import matplotlib.pyplot as plt
 from matplotlib import style
 style.use('ggplot')
-Polynomial = np.polynomial.Polynomial
-# location = input("Select file location")
-infile = open("DataForAssignment4.txt", "r")
+location = input("Select file location")
+#/Users/dan/PycharmProjects/test project/DataForAssignment4.txt
+infile = open(location, "r")
 content = infile.readlines()
-k=len(content)
-while k<20:
-   contents.append("\n")
-   k+=1
 titleLine = content[0]
+#convert title line to list and join back to str
 title = " ".join(titleLine.split()[1:])
-print(title)
+#print(title)
 dateLine = content[2]
+#print(dateLine)
 i = 6
 blankData = []
 while(1):
     if content[i] == "\n":
         break
     print(content[i])
-    blankData.append(float(content[i].split("\n")[0]))
+    #strips \n, converts data & adds to the list
+    blankData.append(float(content[i].strip("\n")))
     i+=1
 j = i + 4
 #print(blankData)
@@ -38,6 +37,7 @@ while(len(content)>i):
     pts = content[i].split("\t")
     #print(pts)
     m=0
+    #appdend x three times for each list skipping the blank tab
     while m<3:
         xArray.append(pts[0])
         yArray.append(pts[m+2].strip("\n"))
@@ -47,6 +47,7 @@ print("xArray: ",xArray)
 print("yArray: ",yArray)
 x = np.array(xArray, dtype=np.float64)
 y = np.array(yArray, dtype=np.float64)
+#line calculation
 def best_fit_slope_and_intercept(xArray, yArray):
     m = (((mean(xArray) * mean(yArray)) - mean(yArray * xArray)) /
          ((mean(xArray) * mean(xArray)) - mean(xArray * xArray)))
@@ -54,7 +55,7 @@ def best_fit_slope_and_intercept(xArray, yArray):
     b = mean(yArray) - m * mean(xArray)
 
     return m, b
-print("best_fit result: ", best_fit_slope_and_intercept(x, y))
+print("m,b", best_fit_slope_and_intercept(x, y))
 m,b=best_fit_slope_and_intercept(x, y)
 
 Fit_line = [(m*xpt)+b for xpt in x]
